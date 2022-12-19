@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
+ * Clase que emula un procesador 6502
  * @author Karel
  */
 public final class CPU {
@@ -226,6 +226,53 @@ public final class CPU {
         });
     }
 
+    /**
+     * Add a given preInstruction handler
+     * @param pre   Interface that gets called before an instruction is executed
+     * @return  This
+     * @throws AssertionError When PRE==null
+     */
+    public CPU addPreInstruction(PreInstruction pre){
+        assert(pre!=null);
+        preInstr.add(pre);
+        return this;
+    }
+    
+    /**
+     * Remove a given preInstruction handler
+     * @param pre   Interface that gets called before an instruction is executed
+     * @return  This
+     * @throws AssertionError   When PRE==null
+     */
+    public CPU removePreInstruction(PreInstruction pre){
+        assert(pre!=null);
+        preInstr.remove(pre);
+        return this;
+    }
+    
+    /**
+     * Add a given postInstruction handler
+     * @param post   Interface that gets called after an instruction is executed
+     * @return  This
+     * @throws AssertionError   When PRE==null
+     */
+    public CPU addPostInstruction(PostInstruction post){
+        assert(post!=null);
+        postInstr.add(post);
+        return this;
+    }
+    
+    /**
+     * Remove a given postInstruction handler
+     * @param post   Interface that gets called after an instruction is executed
+     * @return  This
+     * @throws AssertionError   When PRE==null
+     */
+    public CPU removePostInstruction(PostInstruction post){
+        assert(post!=null);
+        postInstr.add(post);
+        return this;
+    }
     
     /**
      * Interface that gets called before an instruction is executed
